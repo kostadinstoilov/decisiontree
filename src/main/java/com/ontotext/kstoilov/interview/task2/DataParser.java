@@ -36,32 +36,37 @@ public class DataParser {
 	
 	private void parseFile(File file) throws IOException {
 		
+		Map<Integer, HashMap<String, Integer>> categoryValues = new HashMap<Integer, HashMap<String, Integer>>();
+		
 		CSVParser parser = CSVParser.parse(file, Charset.forName("utf-8"), CSVFormat.DEFAULT);
-    	
-		Y = new ArrayList<Double>(parser.getRecords().size());
 		
-		Map<Integer, Set<Double>> categoryValues  = new HashMap<Integer, Set<Double>>();
+		int rows = 1000;
 		
-    	for (CSVRecord record : parser) {    		
+		Y = new ArrayList<Double>(rows);
+		
+    	for (CSVRecord record : parser) {
+    		
     		if (X == null) {
-    			X = this.createColumns(parser.getRecords().size(), record.size());
+    			X = this.createColumns(rows, record.size()-1);
     		}
     		
     		int column = 0;
     		for (String value : record) {
+    			
     			double numeric;
     			
     			try {
     				numeric = Double.parseDouble(value);
     			} catch (NumberFormatException e) {
-    				if (! categoryValues.containsKey(column)) {
-    					categoryValues.put(column, new HashSet<Double>());
+    				HashMap<String, Integer> columnValues = (categoryValues.containsKey(column))? categoryValues.get(column) : new HashMap<String, Integer>();
+    				if (! columnValues.containsKey(value)) {
+    					columnValues.put(value, columnValues.keySet().size());
     				}
-    				numeric = (double) categoryValues.get(column).size();
-    				categoryValues.get(column).add(numeric);
+    				numeric = (double) columnValues.get(value);
+    				categoryValues.put(column, columnValues);
     			}
     		
-    			if (column < record.size()) {
+    			if (column < record.size()-1) {
     				X.get(column).add(numeric);
     			}
     			else {
