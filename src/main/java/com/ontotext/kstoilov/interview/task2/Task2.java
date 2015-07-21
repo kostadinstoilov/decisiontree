@@ -31,8 +31,11 @@ public class Task2
 			return;
 		}
     	
-		for (int i = 0; i < d.Y.size(); i++) {
-    		
+		for (int row = 0; row < d.Y.size(); row++) {
+    		for (int col = 0; col < d.X.size(); col++) {
+    			System.out.print (d.X.get(col).get(row) + " ");
+    		}
+    		System.out.println(d.Y.get(row));
     	}
     }
 }
