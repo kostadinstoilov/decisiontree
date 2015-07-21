@@ -4,7 +4,7 @@ package com.ontotext.kstoilov.interview.task2;
  * Hello world!
  *
  */
-public class App 
+public class Task2 
 {
     public static void main( String[] args )
     {
