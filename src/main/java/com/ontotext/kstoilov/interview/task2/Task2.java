@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.text.html.HTMLEditorKit.Parser;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -17,50 +19,20 @@ import org.apache.commons.csv.CSVRecord;
  */
 public class Task2 
 {
-    public static void main( String[] args ) throws IOException
+    public static void main( String[] args )
     {
-    	List<Double> Y = new ArrayList<Double>(1000);
-    	
-    	List<ArrayList<Double>> X = new ArrayList<ArrayList<Double>>(8);
-    	for (int i = 0; i < 8; i++) {
-    		X.add(new ArrayList<Double>(1000));
-    	}
-    	
     	File file = new File("abalone.csv");
-    	CSVParser parser = CSVParser.parse(file, Charset.forName("utf-8"), CSVFormat.DEFAULT);
     	
-    	for (CSVRecord record : parser) {
-    		Iterator<String> it = record.iterator();
-    		int column = 0;
-    		while (it.hasNext()) {
-    			if (column == 0) {
-    				String value = it.next();
-    				if (value.equals("M")) {
-    					X.get(column).add(1.0);
-    				}
-    				else if (value.equals("F")) {
-    					X.get(column).add(2.0);
-    				}
-    				else {
-    					X.get(column).add(0.0);
-    				}
-    			}
-    			else if (column < 8) {
-    				X.get(column).add(Double.parseDouble(it.next()));
-    			}
-    			else if (column == 8) {
-    				Y.add(Double.parseDouble(it.next()));
-    			}
-    			column++;
-    		}
+    	DataParser d;
+    	try {
+			 d = new DataParser(file);
+		} catch (IOException e) {
+			System.err.println("Could not read input data");
+			return;
+		}
+    	
+		for (int i = 0; i < d.Y.size(); i++) {
+    		
     	}
-    	
-    	for (int row = 0; row < X.get(0).size(); row++) {
-    		for (List<Double> column : X) {
-    			System.out.print(column.get(row) + ",");
-    		}
-    		System.out.println(Y.get(row));
-    	}
-    	
     }
 }
