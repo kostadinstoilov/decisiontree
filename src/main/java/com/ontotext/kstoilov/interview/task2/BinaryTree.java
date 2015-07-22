@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class BinaryTree {
 
@@ -12,12 +14,14 @@ public class BinaryTree {
 	
 	private static final int MAXSPLIT = 10;
 	
-	private int MAXREGION;
+	private static final int MAXREGION = 10;
 
 	private List<ArrayList<Double>> X;
 	
 	private List<Double> Y;
 
+	private int regions;
+	
 	public BinaryTree (List<ArrayList<Double>> X, List<Double> Y) {
 		
 		this.X = X;
@@ -27,12 +31,12 @@ public class BinaryTree {
 	
 	public void build() {
 
+		regions = 0;
+		
 		Set<Integer> R = new HashSet<Integer>(Y.size());
 		for (int i = 0; i < Y.size(); i++) {
 			R.add(i);
 		}
-		
-		MAXREGION = Math.round(Y.size() / MAXSPLIT);
 		
 		this.head = this.buildRecurse(R);
 	}
@@ -42,11 +46,17 @@ public class BinaryTree {
 		SplitNode node = this.bestSplit(R);
 		
 		if (node.R1.size() > MAXREGION) {
-			node.right = this.buildRecurse(node.R1);
+			node.left = this.buildRecurse(node.R1);
+		} 
+		else {
+			regions++;
 		}
 		
 		if (node.R2.size() > MAXREGION) {
-			node.left = this.buildRecurse(node.R2);
+			node.right = this.buildRecurse(node.R2);
+		}
+		else {
+			regions++;
 		}
 		
 		return node;
@@ -156,4 +166,23 @@ public class BinaryTree {
 			return this.traverse(node.left, x);
 		}
 	}
+	
+	private void traversePrunable(SplitNode node, Set<SplitNode> prunable) {
+		
+		if (node.left == null && node.right == null) {
+			prunable.add(node);
+			return;
+		}
+		
+		if (node.left != null) {
+			traversePrunable(node.left, prunable);
+		}
+		
+		if (node.left != null) {
+			traversePrunable(node.right, prunable);
+		}
+		
+		return;
+	}
+	
 }
