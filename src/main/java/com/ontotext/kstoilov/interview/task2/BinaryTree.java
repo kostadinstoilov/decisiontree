@@ -60,12 +60,12 @@ public class BinaryTree {
 		int column = 0;
 		
 		for (ArrayList<Double> x : X) {
-			HashSet<Integer> R1 = new HashSet<Integer>();
-			HashSet<Integer> R2 = new HashSet<Integer>();
 
 			Set<Double> splitValues = this.getSplitValues(x, R);
 			
 			for (double s : splitValues) {
+				HashSet<Integer> R1 = new HashSet<Integer>();
+				HashSet<Integer> R2 = new HashSet<Integer>();
 				for (int row : R) {
 					if (x.get(row) < s) {
 						R1.add(row);
@@ -122,7 +122,7 @@ public class BinaryTree {
 		for (int row : R) {
 			sum += Y.get(row);
 		}
-		return  (sum / Y.size());
+		return  (sum / R.size());
 	}
 	
 	public double getRSS(Set<Integer> R, List<Double> Y) {
