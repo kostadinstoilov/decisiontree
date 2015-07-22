@@ -60,7 +60,7 @@ public class DataParser {
     			} catch (NumberFormatException e) {
     				HashMap<String, Integer> columnValues = (categoryValues.containsKey(column))? categoryValues.get(column) : new HashMap<String, Integer>();
     				if (! columnValues.containsKey(value)) {
-    					columnValues.put(value, columnValues.keySet().size());
+    					columnValues.put(value, columnValues.keySet().size()+1);
     				}
     				numeric = (double) columnValues.get(value);
     				categoryValues.put(column, columnValues);
