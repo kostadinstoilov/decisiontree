@@ -20,7 +20,7 @@ public class BinaryTree {
 	
 	private List<Double> Y;
 
-	private int regions;
+	public Set<HashSet<Integer>> regions;
 	
 	public BinaryTree (List<ArrayList<Double>> X, List<Double> Y) {
 		
@@ -31,7 +31,7 @@ public class BinaryTree {
 	
 	public void build() {
 
-		regions = 0;
+		regions = new HashSet<HashSet<Integer>>();
 		
 		Set<Integer> R = new HashSet<Integer>(Y.size());
 		for (int i = 0; i < Y.size(); i++) {
@@ -49,14 +49,14 @@ public class BinaryTree {
 			node.left = this.buildRecurse(node.R1);
 		} 
 		else {
-			regions++;
+			regions.add(node.R1);
 		}
 		
 		if (node.R2.size() > MAXREGION) {
 			node.right = this.buildRecurse(node.R2);
 		}
 		else {
-			regions++;
+			regions.add(node.R2);
 		}
 		
 		return node;
