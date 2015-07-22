@@ -16,9 +16,9 @@ import org.apache.commons.csv.CSVRecord;
 
 public class DataParser {
 
-	public List<Double> Y = null;
+	private List<Double> Y = null;
 	
-	public List<ArrayList<Double>> X = null;
+	private List<ArrayList<Double>> X = null;
 	
 	public DataParser(File file) throws IOException {
 		parseFile(file);
@@ -85,4 +85,11 @@ public class DataParser {
     	}
     }
 	
+	public List<ArrayList<Double>> getX() {
+		return X;
+	}
+	
+	public List<Double> getY() {
+		return Y;
+	}
 }
