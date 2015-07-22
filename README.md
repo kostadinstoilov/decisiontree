@@ -1,4 +1,4 @@
-# Deciion tree
+# Decision tree
 
 This project builds a simple binary regression tree from an input data set.
 
