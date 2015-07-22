@@ -1,4 +1,4 @@
-# decisiontree
+# Deciion tree
 
 This project builds a simple binary regression tree from an input data set.
 
@@ -20,6 +20,7 @@ mvn compile
 
 ```bash
 mvn exec:java -Dexec.mainClass="com.ontotext.kstoilov.interview.task2.Task2"
+```
 
 ### References
 
