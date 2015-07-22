@@ -75,6 +75,14 @@ public class DataParser {
     			column++;
     		}
     	}
-	}
+    	
+    	for (Integer column : categoryValues.keySet()) {
+    		int setSize = categoryValues.get(column).keySet().size();
+    		List<Double> columnVector = X.get(column);
+    		for (int row = 0; row < columnVector.size(); row++) {
+    			columnVector.set(row, (double) Math.round(columnVector.get(row)/setSize*1000)/1000);
+    		}
+    	}
+    }
 	
 }
