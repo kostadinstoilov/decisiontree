@@ -1,6 +1,6 @@
 package com.ontotext.kstoilov.interview.task2;
 
-import java.util.Set;
+import java.util.HashSet;
 
 public class SplitNode {
 
@@ -12,8 +12,8 @@ public class SplitNode {
 	
 	public SplitNode right = null;
 	
-	public Set<Integer> R1 = null;
+	public HashSet<Integer> R1 = null;
 	
-	public Set<Integer> R2 = null;
+	public HashSet<Integer> R2 = null;
 	
 }
