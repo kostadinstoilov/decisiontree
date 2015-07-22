@@ -2,16 +2,8 @@ package com.ontotext.kstoilov.interview.task2;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.text.html.HTMLEditorKit.Parser;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 
 /**
  * Hello world!
@@ -23,19 +15,38 @@ public class Task2
     {
     	File file = new File("abalone.csv");
     	
-    	DataParser d;
+    	DataParser data;
     	try {
-			 d = new DataParser(file);
+			 data = new DataParser(file);
 		} catch (IOException e) {
 			System.err.println("Could not read input data");
 			return;
 		}
     	
-		for (int row = 0; row < d.Y.size(); row++) {
-    		for (int col = 0; col < d.X.size(); col++) {
-    			System.out.print (d.X.get(col).get(row) + " ");
+    	int split = Math.round(data.getY().size()/2);
+    	
+    	List<Double> train = data.getY().subList(0, split);
+    	
+    	BinaryTree tree = new BinaryTree(data.getX(), train);
+    		
+    	double error = 0;
+    	
+    	double avg = 0;
+    	
+    	for (int row = split; row < data.getY().size(); row++) {
+    		
+    		List<Double> sample = new ArrayList<Double>();
+ 
+    		for (List<Double> x : data.getX()) {
+    			sample.add(x.get(row));
     		}
-    		System.out.println(d.Y.get(row));
-    	}
+    		double output = tree.getOutput(sample);
+    		error += Math.pow(output - data.getY().get(row), 2);
+    		avg += Math.abs(output - data.getY().get(row));
+     	}
+    	
+    	System.out.println("Total MSE over test set " + error);
+    	System.out.println("Average error per test set sample: " + avg/split);
+    	
     }
 }
