@@ -1,5 +1,7 @@
 package com.ontotext.kstoilov.interview.task2;
 
+import java.util.Set;
+
 public class SplitNode {
 
 	public int column;
@@ -10,9 +12,8 @@ public class SplitNode {
 	
 	public SplitNode right = null;
 	
-	public SplitNode(int column, double s) {
+	public Set<Integer> R1 = null;
 	
-		this.column = column;
-		this.s = s;
-	}
+	public Set<Integer> R2 = null;
+	
 }
