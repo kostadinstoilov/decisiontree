@@ -16,12 +16,19 @@ cd decisiontree
 mvn compile
 ```
 
-### Usage
+## Usage
+
+### Regression Tree (default)
 
 ```bash
-mvn exec:java -Dexec.mainClass="com.ontotext.kstoilov.interview.task2.Task2"
+mvn exec:java -Dexec.mainClass="com.ontotext.kstoilov.interview.task2.Task2" -Dexec.args="abalone.csv"
+```
+### Classification Tree
+
+```bash
+mvn exec:java -Dexec.mainClass="com.ontotext.kstoilov.interview.task2.Task2" -Dexec.args="abalone_classification.csv classification"
 ```
 
-### References
+## References
 
 1. http://www-bcf.usc.edu/~gareth/ISL/
