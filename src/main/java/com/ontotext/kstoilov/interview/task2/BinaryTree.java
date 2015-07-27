@@ -14,7 +14,7 @@ public class BinaryTree {
 	
 	private static final int MAXSPLIT = 10;
 	
-	private int MAXREGION = 200;
+	private int MAXREGION = 10;
 
 	private List<ArrayList<Double>> X;
 	
@@ -37,9 +37,9 @@ public class BinaryTree {
 		for (int i = 0; i < Y.size(); i++) {
 			R.add(i);
 		}
-		
-		this.head = this.buildRecurse(R);
+
 		MAXREGION = Y.size()/MAXSPLIT;
+		this.head = this.buildRecurse(R);
 	}
 	
 	private SplitNode buildRecurse(Set<Integer> R) {
