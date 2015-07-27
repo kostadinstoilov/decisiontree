@@ -13,7 +13,7 @@ public class Task2
 {
     public static void main( String[] args )
     {
-    	File file = new File("abalone.csv");
+    	File file = new File(args[0]);
     	
     	DataParser data;
     	try {
@@ -27,8 +27,17 @@ public class Task2
     	
     	List<Double> train = data.getY().subList(0, split);
     	
-    	BinaryTree tree = new BinaryTree(data.getX(), train);
-    		
+    	BinaryTree tree;
+    	
+    	if (args.length >= 2 && args[1].equals("classification")) {
+        	tree = new BinaryClassificationTree(data.getX(), train);   		
+    	}
+    	else {
+        	tree = new BinaryRegressionTree(data.getX(), train);
+    	}
+
+    	tree.build(); 
+    	
     	double error = 0;
     	
     	double avg = 0;
