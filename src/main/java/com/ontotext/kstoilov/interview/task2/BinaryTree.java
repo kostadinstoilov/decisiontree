@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 
-public class BinaryTree {
+abstract public class BinaryTree {
 
 	public SplitNode head = null;
 	
@@ -22,23 +22,24 @@ public class BinaryTree {
 
 	public Set<HashSet<Integer>> regions;
 	
+	abstract public double getError(Set<Integer> R, List<Double> Y);
+	
+	abstract public double getLeafValue(Set<Integer> R, List<Double> Y);
+	
 	public BinaryTree (List<ArrayList<Double>> X, List<Double> Y) {
 		
 		this.X = X;
 		this.Y = Y;
-		build();
+		regions = new HashSet<HashSet<Integer>>();
+		MAXREGION = Y.size()/MAXSPLIT;
 	}
 	
 	public void build() {
-
-		regions = new HashSet<HashSet<Integer>>();
 		
 		Set<Integer> R = new HashSet<Integer>(Y.size());
 		for (int i = 0; i < Y.size(); i++) {
 			R.add(i);
 		}
-
-		MAXREGION = Y.size()/MAXSPLIT;
 		this.head = this.buildRecurse(R);
 	}
 	
@@ -85,7 +86,7 @@ public class BinaryTree {
 						R2.add(row);
 					}
 				}
-				Double rss = this.getRSS(R1, Y) + this.getRSS(R2, Y);
+				Double rss = this.getError(R1, Y) + this.getError(R2, Y);
 				if (bestRss == null || rss < bestRss) {
 					bestRss = rss;
 					node.column = column;
@@ -136,18 +137,6 @@ public class BinaryTree {
 		return  (sum / R.size());
 	}
 	
-	public double getRSS(Set<Integer> R, List<Double> Y) {
-		
-		double yMean = this.getMean(R, Y);
-		
-		double rss = 0;
-		for (int row : R) {
-			rss += Math.pow((Y.get(row) - yMean), 2); 
-		}
-		
-		return rss;
-	}
-	
 	public double getOutput(List<Double> x) {
 		return this.traverse(this.head, x);
 	}
@@ -156,13 +145,13 @@ public class BinaryTree {
 		
 		if (x.get(node.column) < node.s) {
 			if (node.left == null) {
-				return this.getMean(node.R1, Y);
+				return this.getLeafValue(node.R1, Y);
 			}
 			return this.traverse(node.left, x);	
 		}
 		else {
 			if (node.right == null) {
-				return this.getMean(node.R2, Y);
+				return this.getLeafValue(node.R2, Y);
 			}
 			return this.traverse(node.right, x);
 		}
@@ -184,6 +173,5 @@ public class BinaryTree {
 		}
 		
 		return;
-	}
-	
+	}	
 }
