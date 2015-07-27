@@ -155,16 +155,16 @@ public class BinaryTree {
 	private double traverse(SplitNode node, List<Double> x) {
 		
 		if (x.get(node.column) < node.s) {
-			if (node.right == null) {
+			if (node.left == null) {
 				return this.getMean(node.R1, Y);
 			}
-			return this.traverse(node.right, x);	
+			return this.traverse(node.left, x);	
 		}
 		else {
-			if (node.left == null) {
+			if (node.right == null) {
 				return this.getMean(node.R2, Y);
 			}
-			return this.traverse(node.left, x);
+			return this.traverse(node.right, x);
 		}
 	}
 	
