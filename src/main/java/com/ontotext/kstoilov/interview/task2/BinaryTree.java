@@ -47,18 +47,18 @@ abstract public class BinaryTree {
 		
 		SplitNode node = this.bestSplit(R);
 		
-		if (node.R1.size() > MAXREGION) {
-			node.left = this.buildRecurse(node.R1);
+		if (node.regionLeft.size() > MAXREGION) {
+			node.left = this.buildRecurse(node.regionLeft);
 		} 
 		else {
-			regions.add(node.R1);
+			regions.add(node.regionLeft);
 		}
 		
-		if (node.R2.size() > MAXREGION) {
-			node.right = this.buildRecurse(node.R2);
+		if (node.regionRight.size() > MAXREGION) {
+			node.right = this.buildRecurse(node.regionRight);
 		}
 		else {
-			regions.add(node.R2);
+			regions.add(node.regionRight);
 		}
 		
 		return node;
@@ -90,10 +90,10 @@ abstract public class BinaryTree {
 					Double rss = this.getError(R1, Y) + this.getError(R2, Y);
 					if (bestRss == null || rss < bestRss) {
 						bestRss = rss;
-						node.column = column;
+						node.feature = column;
 						node.s = s;
-						node.R1 = R1;
-						node.R2 = R2;
+						node.regionLeft = R1;
+						node.regionRight = R2;
 					}					
 				}
 
@@ -146,15 +146,15 @@ abstract public class BinaryTree {
 	
 	private double traverse(SplitNode node, List<Double> x) {
 		
-		if (x.get(node.column) < node.s) {
+		if (x.get(node.feature) < node.s) {
 			if (node.left == null) {
-				return this.getLeafValue(node.R1, Y);
+				return this.getLeafValue(node.regionLeft, Y);
 			}
 			return this.traverse(node.left, x);	
 		}
 		else {
 			if (node.right == null) {
-				return this.getLeafValue(node.R2, Y);
+				return this.getLeafValue(node.regionRight, Y);
 			}
 			return this.traverse(node.right, x);
 		}

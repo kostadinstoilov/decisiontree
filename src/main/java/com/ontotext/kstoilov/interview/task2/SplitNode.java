@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 public class SplitNode {
 
-	public int column;
+	public int feature;
 	
 	public double s;
 	
@@ -12,8 +12,8 @@ public class SplitNode {
 	
 	public SplitNode right = null;
 	
-	public HashSet<Integer> R1 = null;
+	public HashSet<Integer> regionLeft = null;
 	
-	public HashSet<Integer> R2 = null;
+	public HashSet<Integer> regionRight = null;
 	
 }
