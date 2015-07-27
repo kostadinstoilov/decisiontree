@@ -86,14 +86,17 @@ abstract public class BinaryTree {
 						R2.add(row);
 					}
 				}
-				Double rss = this.getError(R1, Y) + this.getError(R2, Y);
-				if (bestRss == null || rss < bestRss) {
-					bestRss = rss;
-					node.column = column;
-					node.s = s;
-					node.R1 = R1;
-					node.R2 = R2;
+				if (R1.size() > 0 && R2.size() > 0) {
+					Double rss = this.getError(R1, Y) + this.getError(R2, Y);
+					if (bestRss == null || rss < bestRss) {
+						bestRss = rss;
+						node.column = column;
+						node.s = s;
+						node.R1 = R1;
+						node.R2 = R2;
+					}					
 				}
+
 			}
 			
 			column++;
